@@ -1,0 +1,2 @@
+export const INTERVIEWING = "INTERVIEWING";
+export const DATA_LOADED = "DATA_LOADED";
