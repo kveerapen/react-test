@@ -10,59 +10,73 @@ const Title = styled.div`
   font-size: 24px;
 `;
 
+const renderColumns = ({
+  crewman,
+  stage,
+  handleRightButtonClick,
+  handleLeftButtonClick
+}) =>
+  crewman
+    .filter(person => person.stage === stage)
+    .map(person => (
+      <PersonCard
+        key={person.id}
+        stage={person.stage}
+        name={person.name}
+        city={person.city}
+        avatar={person.avatar}
+        handleRightButtonClick={handleRightButtonClick}
+        handleLeftButtonClick={handleLeftButtonClick}
+      />
+    ));
+
 class CrewApplicantsTable extends React.Component {
   componentDidMount() {
     this.props.getData();
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  handleRightButtonClick() {
+    console.log("right click");
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  handleLeftButtonClick() {
+    console.log("left click");
+  }
+
   render() {
     const { crewman } = this.props;
+
     return (
       <Row>
         <Col span={8} align="center">
           <Title>Applied</Title>
           {crewman &&
-            crewman
-              .filter(person => person.stage === "applied")
-              .map(person => (
-                <PersonCard
-                  key={person.id}
-                  stage={person.stage}
-                  name={person.name}
-                  city={person.city}
-                  avatar={person.avatar}
-                />
-              ))}
+            renderColumns({
+              crewman,
+              stage: "applied",
+              handleRightButtonClick: this.handleRightButtonClick
+            })}
         </Col>
         <Col span={8} align="center">
           <Title>Interviewing</Title>
           {crewman &&
-            crewman
-              .filter(person => person.stage === "interviewing")
-              .map(person => (
-                <PersonCard
-                  key={person.id}
-                  stage={person.stage}
-                  name={person.name}
-                  city={person.city}
-                  avatar={person.avatar}
-                />
-              ))}
+            renderColumns({
+              crewman,
+              stage: "interviewing",
+              handleRightButtonClick: this.handleRightButtonClick,
+              handleLeftButtonClick: this.handleLeftButtonClick
+            })}
         </Col>
         <Col span={8} align="center">
           <Title>Hiring</Title>
           {crewman &&
-            crewman
-              .filter(person => person.stage === "hired")
-              .map(person => (
-                <PersonCard
-                  key={person.id}
-                  stage={person.stage}
-                  name={person.name}
-                  city={person.city}
-                  avatar={person.avatar}
-                />
-              ))}
+            renderColumns({
+              crewman,
+              stage: "hired",
+              handleLeftButtonClick: this.handleLeftButtonClick
+            })}
         </Col>
       </Row>
     );

@@ -6,7 +6,14 @@ const RowSeparator = styled.div`
   height: 15px;
 `;
 
-const PersonCard = ({ stage, name, city, avatar }) => {
+const PersonCard = ({
+  stage,
+  name,
+  city,
+  avatar,
+  handleRightButtonClick,
+  handleLeftButtonClick
+}) => {
   return (
     <Card style={{ width: 300 }}>
       <Row type="flex" justify="space-around" align="middle">
@@ -24,7 +31,7 @@ const PersonCard = ({ stage, name, city, avatar }) => {
       <Row>
         {stage === "applied" && (
           <Col span={24} align="right">
-            <Button type="primary">
+            <Button type="primary" onClick={handleRightButtonClick}>
               <Icon type="right" />
             </Button>
           </Col>
@@ -32,12 +39,12 @@ const PersonCard = ({ stage, name, city, avatar }) => {
         {stage === "interviewing" && (
           <Fragment>
             <Col span={12} align="left">
-              <Button type="primary">
+              <Button type="primary" onClick={handleLeftButtonClick}>
                 <Icon type="left" />
               </Button>
             </Col>
             <Col span={12} align="right">
-              <Button type="primary">
+              <Button type="primary" onClick={handleRightButtonClick}>
                 <Icon type="right" />
               </Button>
             </Col>
@@ -45,7 +52,7 @@ const PersonCard = ({ stage, name, city, avatar }) => {
         )}
         {stage === "hired" && (
           <Col span={24} align="left">
-            <Button type="primary">
+            <Button type="primary" onClick={handleLeftButtonClick}>
               <Icon type="left" />
             </Button>
           </Col>
